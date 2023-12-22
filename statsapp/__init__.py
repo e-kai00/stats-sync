@@ -15,6 +15,7 @@ else:
 
 db = SQLAlchemy(app)
 
-
+from statsapp import routes
+from statsapp import models
 
     

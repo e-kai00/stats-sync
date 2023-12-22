@@ -1,0 +1,13 @@
+core.Microsoft*
+core.mongo*
+core.python*
+env.py
+*.py[cod]
+node_modules/
+.github/
+cloudinary_python.txt 
+*sqlite3
+__pycache__/
+stats_sync/
+notes.md
+instance/

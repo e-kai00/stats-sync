@@ -1,24 +1,54 @@
 from flask import jsonify
-import shopify
+import requests
 from statsapp import app
+from statsapp import SHOPIFY_API_BASE_URL, SHOPIFY_HEADERS 
 
 
-@app.route('/get_products', methods=['GET'])
-def get_products():
-    try:
-        # Make a request to get a list of products
-        products = shopify.Product.find()
+@app.route('/get_shopify_data', methods=['GET'])
+def get_shopify_data():
 
-        # Extract relevant information from the products
-        product_data = []
-        for product in products:
-            product_data.append({
-                'id': product.id,
-                'title': product.title,
-                'price': product.variants[0].price,
-            })
+    shopify_response = requests.get(f"{SHOPIFY_API_BASE_URL}/orders/.json?status=any&fields=id", headers=SHOPIFY_HEADERS)
 
-        return jsonify({'products': product_data})
+    return jsonify(shopify_response.json())
+    # return shopify_response.text
 
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+    
+
+
+
+# TenderTransaction
+# orders: orders.json?status=any&fields=id,...
+    #    {
+    #   "id": 5580255101088
+    # },
+    # {
+    #   "id": 5566800396448
+    # },
+    # {
+    #   "id": 5465509986464
+    # },
+    # {
+    #   "id": 5421844693152
+    # },
+# handle errors
+
+
+# @app.route('/get_products', methods=['GET'])
+# def get_products():
+#     try:
+#         # Make a request to get a list of products
+#         products = shopify.Product.find()
+
+#         # Extract relevant information from the products
+#         product_data = []
+#         for product in products:
+#             product_data.append({
+#                 'id': product.id,
+#                 'title': product.title,
+#                 'price': product.variants[0].price,
+#             })
+
+#         return jsonify({'products': product_data})
+
+#     except Exception as e:
+#         return jsonify({'error': str(e)}), 500

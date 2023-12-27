@@ -27,9 +27,10 @@ class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     platform = db.Column(db.String(120), nullable=False)
 
-    order_total_amount = db.Column(db.Float, nullable=False) # to extend
+    order_total_amount = db.Column(db.Float, nullable=False) 
+    order_subtotal_amount = db.Column(db.Float, nullable=False) 
     order_discount = db.Column(db.Float) 
-    order_id = db.Column(db.Integer, nullable=False)
+    platform_order_id = db.Column(db.Integer, nullable=False)
     product_sku = db.Column(db.String(255))
     shipping = db.Column(db.Float)
 

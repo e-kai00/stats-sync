@@ -7,11 +7,19 @@ from statsapp import SHOPIFY_API_BASE_URL, SHOPIFY_HEADERS
 @app.route('/get-shopify-data', methods=['GET'])
 def get_shopify_data():
 
+    order_query_params = {
+        'status': 'any',
+        'created_at_min': '2023-09-31T15:57:11-04:00',
+        'fields': 'id,created_at,subtotal_price,total_price,total_tax,total_shipping_price_set,line_items'
+    }
+
     shopify_response = requests.get(
-        f"{SHOPIFY_API_BASE_URL}/orders.json?status=any&created_at_min=2023-09-31T15:57:11-04:00&fields=id,created_at,subtotal_price,total_price,total_tax,total_shipping_price_set,line_items", 
+        f"{SHOPIFY_API_BASE_URL}/orders.json",
+        params=order_query_params,
         headers=SHOPIFY_HEADERS
     )
 
+    print(shopify_response.url)
     orders = shopify_response.json()
 
     for order in orders.get('orders', []):
@@ -29,7 +37,6 @@ def get_shopify_data():
             f'Order ID: {order_id}, Order total: {order_total}, Order subtotal: {order_subtotal}, Shipping: {shipping}, SKU: {sku}' 
         )
 
-    # return jsonify(shopify_response.json())
     return orders
    
 

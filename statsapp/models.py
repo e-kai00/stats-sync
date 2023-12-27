@@ -3,11 +3,11 @@ from statsapp import db
 
 class Expense(db.Model):
     """
-    origin filed: Etsy / Shopify / Custom App;
+    origin field: Etsy / Shopify / Custom App;
 
-    main_category filed: platform billing / production costs / taxes / marketing / shipping;
+    main_category field: platform billing / production costs / taxes / marketing / shipping;
 
-    sub_category filed: used for main_category 'marketing' and incudes: Google ads / FB / IG / Etsy ads, 
+    sub_category field: used for main_category 'marketing' and incudes: Google ads / FB / IG / Etsy ads, 
     and for main_category 'production costs' and includes: materials / supplies / labor;
     """
 

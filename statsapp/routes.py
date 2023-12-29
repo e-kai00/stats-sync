@@ -1,10 +1,13 @@
-from flask import jsonify
+from flask import jsonify, render_template
 import requests
 from requests.exceptions import RequestException
 from datetime import datetime
 from statsapp import app, db
 from statsapp.models import Order
 from statsapp import SHOPIFY_API_BASE_URL, SHOPIFY_HEADERS 
+# import logging
+
+# logging.basicConfig(level=logging.DEBUG)
 
 
 def fetch_shopify_data():
@@ -91,6 +94,16 @@ def checker():
 
     print("Orders saved to the database.")
     return jsonify(saved_orders=orders_list)
+
+
+# custom app data
+@app.route('/spend-snap', methods=['GET', 'POST'])
+def custom_app_data():
+
+    return render_template('spend_snap.html')
+   
+
+
 
 # TenderTransaction
 # orders: orders.json?status=any&fields=id,...

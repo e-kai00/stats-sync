@@ -53,7 +53,6 @@ class Order(db.Model):
     #     return f"MarketingData('{self.platform}', '{self.campaign_cost}')"    
     
 
-# class CustomAppData(db.Model):
 
 
 

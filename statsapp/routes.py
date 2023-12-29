@@ -1,9 +1,9 @@
-from flask import jsonify, render_template
+from flask import jsonify, render_template, request, redirect, url_for
 import requests
 from requests.exceptions import RequestException
 from datetime import datetime
 from statsapp import app, db
-from statsapp.models import Order
+from statsapp.models import Order, Expense
 from statsapp import SHOPIFY_API_BASE_URL, SHOPIFY_HEADERS 
 # import logging
 
@@ -99,9 +99,24 @@ def checker():
 # custom app data
 @app.route('/spend-snap', methods=['GET', 'POST'])
 def custom_app_data():
+    
+    if request.method == 'POST':
+        expense = Expense(
+            origin = 'SpendSnap App',
+            main_category = 'Production Costs',
+            date = datetime.today().strftime('%Y-%m-%d'),
+
+            sub_category = request.form.get('category'),
+            amount = request.form.get('amount'),
+            description = request.form.get('description')
+        )
+        db.session.add(expense)
+        db.session.commit()        
 
     return render_template('spend_snap.html')
    
+
+
 
 
 

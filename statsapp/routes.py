@@ -97,29 +97,50 @@ def checker():
 
 
 # custom app data
-@app.route('/spend-snap', methods=['GET', 'POST'])
-def spend_snap():    
-    
-    if request.method == 'POST':
-        if 'form_submitted' in request.form:
-            expense = Expense(
-                origin = 'SpendSnap App',
-                main_category = 'Production Costs',
-                date = datetime.today().date(),
+@app.route('/spend-snap', methods=['GET'] )
+def spend_snap():  
 
-                sub_category = request.form.get('category'),
-                amount = request.form.get('amount'),
-                description = request.form.get('description')
-            )
-            db.session.add(expense)
-            db.session.commit()
-
-            return redirect(url_for('spend_snap'))
-    
     expenses = Expense.query.all()
-    print(expenses)
 
     return render_template('spend_snap.html', expenses=expenses)
+
+
+@app.route('/add-expense', methods=['GET', 'POST'])
+def add_expense():
+
+    if request.method == 'POST':
+        expense = Expense(
+            origin = 'SpendSnap App',
+            main_category = 'Production Costs',
+            date = datetime.today().date(),
+
+            sub_category = request.form.get('category'),
+            amount = request.form.get('amount'),
+            description = request.form.get('description')
+        )
+        db.session.add(expense)
+        db.session.commit()
+
+        return redirect(url_for('spend_snap'))
+    
+    return render_template('add_expense.html')
+
+
+@app.route('/delete-expense/<int:expense_id>', methods=['POST'])
+def delete_expense(expense_id):
+
+    expenss = Expense.query.get_or_404(expense_id)
+
+    if expenss:
+        db.session.delete(expenss)
+        db.session.commit()
+
+        return redirect(url_for('spend_snap'))
+    
+    print("No expense found")
+    return redirect(url_for('spend_snap'))
+    
+    
    
 
 

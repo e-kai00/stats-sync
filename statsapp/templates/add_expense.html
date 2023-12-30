@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>SpendSnap App</h1>
+
+<form method="POST" action="{{url_for('add_expense')}}">
+    <label for="select-category">Enter category:</label>
+    <select name="category" id="select-category">
+        <option value="">--Please choose option--</option>
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+        <option value="other">Other</option>
+    </select>
+
+    <label for="amount">Enter amount:</label>
+    <input type="text" name="amount" id="amount" placeholder="Enter your SpendSnap here">
+    
+    <label for="description">Enter description:</label>
+    <textarea type="text" name="description" id="description" rows="5" cols="33"></textarea>
+    
+    <input type="hidden" name="form_submitted" value="1">
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}

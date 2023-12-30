@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>SpendSnap App</h1>
+<h1>Add Expense</h1>
 
 <form method="POST" action="{{url_for('add_expense')}}">
     <label for="select-category">Enter category:</label>
-    <select name="category" id="select-category">
+    <select name="sub-category" id="select-category">
         <option value="">--Please choose option--</option>
         <option value="option1">Option 1</option>
         <option value="option2">Option 2</option>

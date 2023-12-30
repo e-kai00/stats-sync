@@ -114,7 +114,7 @@ def add_expense():
             main_category = 'Production Costs',
             date = datetime.today().date(),
 
-            sub_category = request.form.get('category'),
+            sub_category = request.form.get('sub-category'),
             amount = request.form.get('amount'),
             description = request.form.get('description')
         )
@@ -141,6 +141,18 @@ def delete_expense(expense_id):
     return redirect(url_for('spend_snap'))
     
     
+@app.route('/update-expense/<int:expense_id>', methods=['GET', 'POST'])
+def update_expense(expense_id):
+
+    expense = Expense.query.get_or_404(expense_id)
+
+    if expense:
+        if request.method == 'POST':
+            pass
+
+    return render_template('update_expense', expense=expense)
+
+
    
 
 

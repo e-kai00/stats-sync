@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Update Expense</h1>
+
+<form>
+    <!-- select element -->
+    <input id="sub-category">
+    <label for="sub-category"></label>
+
+    <input id="amount" name="amount" type="text">
+    <label for="amount"></label>
+
+    <textarea id="description" name="description" type="text" rows="5" cols="33"></textarea>
+    <label for="description"></label>
+
+    <button type="submit">Update expense</button>
+</form>
+
+{% endblock %}

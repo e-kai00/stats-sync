@@ -1,0 +1,25 @@
+/* SCSS RGB */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #ffffff;
+  color: #262626;
+  font-family: "Lato", sans-serif;
+  font-size: 1rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Montserrat", sans-serif;
+}
+
+h2 {
+  text-align: center;
+  font-weight: bold;
+  margin-block: 1.5em;
+}
+
+.navbar {
+  background-color: #886f68;
+}

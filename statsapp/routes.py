@@ -98,14 +98,22 @@ def checker():
 
 # custom app data
 @app.route('/spend-snap', methods=['GET'] )
-def spend_snap():  
+def spend_snap():
+    """
+    Displays expenses for the current month
+    """
+    current_month = datetime.now().month
+    current_year = datetime.now().year
 
-    expenses = Expense.query.all()
+    current_month_expenses = Expense.query.filter(
+        db.extract('month', Expense.date) == current_month,
+        db.extract('year', Expense.date) == current_year
+    ).all()
 
-    return render_template('spend_snap.html', expenses=expenses)
+    return render_template('spend_snap.html', expenses=current_month_expenses)
 
 
-@app.route('/add-expense', methods=['GET', 'POST'])
+@app.route('/spend-snap/add', methods=['GET', 'POST'])
 def add_expense():
 
     if request.method == 'POST':
@@ -126,7 +134,26 @@ def add_expense():
     return render_template('add_expense.html')
 
 
-@app.route('/delete-expense/<int:expense_id>', methods=['POST'])
+@app.route('/spend-snap/<int:expense_id>/update', methods=['GET', 'POST'])
+def update_expense(expense_id):
+
+    expense = Expense.query.get_or_404(expense_id)
+
+    if expense:
+        if request.method == 'POST':
+            expense.sub_category = request.form.get('sub-category')
+            expense.amount = request.form.get('amount')
+            expense.description = request.form.get('description')
+            expense.date = datetime.today().date()
+
+            db.session.commit()
+
+            return redirect(url_for('spend_snap'))
+
+    return render_template('update_expense.html', expense=expense)
+
+
+@app.route('/spend-snap/<int:expense_id>/delete', methods=['POST'])
 def delete_expense(expense_id):
 
     expenss = Expense.query.get_or_404(expense_id)
@@ -141,28 +168,6 @@ def delete_expense(expense_id):
     return redirect(url_for('spend_snap'))
     
     
-@app.route('/update-expense/<int:expense_id>', methods=['GET', 'POST'])
-def update_expense(expense_id):
-
-    expense = Expense.query.get_or_404(expense_id)
-
-    if expense:
-        if request.method == 'POST':
-            expense.sub_category = request.form.get('sub-category')
-            expense.amount = request.form.get('amount')
-            expense.description = request.form.get('description')
-
-            db.session.commit()
-
-            return redirect(url_for('spend_snap'))
-
-    return render_template('update_expense.html', expense=expense)
-
-
-   
-
-
-
 
 
 # TenderTransaction

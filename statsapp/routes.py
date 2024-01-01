@@ -100,7 +100,7 @@ def checker():
 @app.route('/spend-snap', methods=['GET'] )
 def spend_snap():
     """
-    Displays expenses for the current month
+    Displays expenses
     """
     period_filter = request.args.get('period')
 

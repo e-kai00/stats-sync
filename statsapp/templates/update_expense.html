@@ -3,16 +3,25 @@
 
 <h1>Update Expense</h1>
 
-<form>
+<p>here comes expense category</p>
+<p>Expense {{ expense.id }}</p>
+
+<form method="POST" action="{{url_for('update_expense', expense_id=expense.id)}}">
     <!-- select element -->
-    <input id="sub-category">
-    <label for="sub-category"></label>
+    <label for="sub-category">Sub-categoty</label>
+    <select name="sub-category" id="sub-category">
+        <option value="">--Please choose option--</option>
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+        <option value="other">Other</option>
+    </select>
 
+    <label for="amount">Amount</label>
     <input id="amount" name="amount" type="text">
-    <label for="amount"></label>
 
+    <label for="description">Description</label>
     <textarea id="description" name="description" type="text" rows="5" cols="33"></textarea>
-    <label for="description"></label>
 
     <button type="submit">Update expense</button>
 </form>

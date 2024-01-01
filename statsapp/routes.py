@@ -148,9 +148,15 @@ def update_expense(expense_id):
 
     if expense:
         if request.method == 'POST':
-            pass
+            expense.sub_category = request.form.get('sub-category')
+            expense.amount = request.form.get('amount')
+            expense.description = request.form.get('description')
 
-    return render_template('update_expense', expense=expense)
+            db.session.commit()
+
+            return redirect(url_for('spend_snap'))
+
+    return render_template('update_expense.html', expense=expense)
 
 
    

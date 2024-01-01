@@ -102,15 +102,29 @@ def spend_snap():
     """
     Displays expenses for the current month
     """
-    current_month = datetime.now().month
-    current_year = datetime.now().year
+    period_filter = request.args.get('period')
 
-    current_month_expenses = Expense.query.filter(
-        db.extract('month', Expense.date) == current_month,
-        db.extract('year', Expense.date) == current_year
-    ).all()
+    # display current month
+    if not period_filter:
+        current_month = datetime.now().month
+        current_year = datetime.now().year
 
-    return render_template('spend_snap.html', expenses=current_month_expenses)
+        expenses = Expense.query.filter(
+            db.extract('month', Expense.date) == current_month,
+            db.extract('year', Expense.date) == current_year
+        ).all()
+
+    # display all expenses
+    elif period_filter == 'all':
+        expenses = Expense.query.all()
+        
+    # display chosen month expenses
+    else:
+        expenses = Expense.query.filter(
+            db.extract('month', Expense.date) == int(period_filter)
+        ).all()
+
+    return render_template('spend_snap.html', expenses=expenses, period=period_filter)
 
 
 @app.route('/spend-snap/add', methods=['GET', 'POST'])

@@ -4,46 +4,51 @@
 <h2>SpendSnap App</h2>
 
 <div>
-    <h3>Filtering</h3>
     <form method="GET" action="{{url_for('spend_snap')}}">
-        <label for="period">Choose Month</label>
-        <select name="period" id="period">
-            <option value="">--Current Month--</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="all">--All time--</option>
-        </select>
-
-        <input type="submit" value="Submit">
-
+        <div class="mb-3">
+            <label for="period" class="form-label">Choose Month</label>
+            <select name="period" id="period" class="form-select">
+                <option value="">--Current Month--</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="all">--All time--</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <input type="submit" value="Submit">
+        </div>
     </form>
 </div>
 
 <div>
     <ul>
         {% for expense in expenses %}
-        <li>{{expense.id}}</li>
-        <li>{{expense.origin}}</li>
-        <li>{{expense.main_category}}</li>
-        <li>{{expense.sub_category}}</li>
-        <li>{{expense.amount}}</li>
-        <li>{{expense.description}}</li>
-        <li>{{expense.date}}</li>
+        <!-- <li>id {{expense.id}}</li> -->
+        <!-- <li>{{expense.origin}}</li> -->
+        <!-- <li>{{expense.main_category}}</li> -->
+        <li class="row"><div class="col">Category:</div> <div class="col">{{expense.sub_category}}</div></li>
+        <li class="row"><div class="col">Amount:</div> <div class="col">{{expense.amount}} usd</div></li>
+        <li class="row"><div class="col">Note:</div> <div class="col">{{expense.description}}</div></li>
+        <li class="row"><div class="col">Date:</div> <div class="col">{{expense.date}}</div></li>
 
-        <form method="POST" action="{{url_for('delete_expense', expense_id=expense.id)}}">
-            <button type="submit">Delete this expense</button>
-        </form>
-        
+        <li>
+            <div class="button-set">
+                <form method="POST" action="{{url_for('delete_expense', expense_id=expense.id)}}">
+                    <button type="submit">Delete</button>
+                </form>
+                <a href="{{url_for('update_expense', expense_id=expense.id)}}">Update</a>
+            </div>
+        </li>
         <hr>
         {% endfor %}
     </ul>

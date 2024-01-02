@@ -3,27 +3,32 @@
 
 <h2>Update Expense</h2>
 
-<p>here comes expense category</p>
-<p>Expense {{ expense.id }}</p>
+<p class="sub-title">You're updating expense id-{{ expense.id }}</p>
 
 <form method="POST" action="{{url_for('update_expense', expense_id=expense.id)}}">
-    <!-- select element -->
-    <label for="sub-category">Sub-categoty</label>
-    <select name="sub-category" id="sub-category">
-        <option value="">--Please choose option--</option>
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
-        <option value="other">Other</option>
-    </select>
-
-    <label for="amount">Amount</label>
-    <input id="amount" name="amount" type="text">
-
-    <label for="description">Description</label>
-    <textarea id="description" name="description" type="text" rows="5" cols="33"></textarea>
-
-    <button type="submit">Update expense</button>
+    <div class="row mb-3">
+        <div class="col">
+            <label for="sub-category" class="form-label">Sub-categoty</label>
+            <select name="sub-category" id="sub-category" class="form-select">
+                <option value="">--Choose option--</option>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        <div class="col">
+            <label for="amount" class="form-label">Amount</label>
+            <input id="amount" name="amount" type="text" class="form-control">
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea id="description" name="description" type="text" rows="5" cols="33" class="form-control"></textarea>
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="app-button">Update</button>
+    </div>
 </form>
 
 {% endblock %}

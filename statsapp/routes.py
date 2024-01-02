@@ -118,7 +118,7 @@ def spend_snap():
     elif period_filter == 'all':
         expenses = Expense.query.all()
         
-    # display chosen month expenses
+    # display chosen month 
     else:
         expenses = Expense.query.filter(
             db.extract('month', Expense.date) == int(period_filter)

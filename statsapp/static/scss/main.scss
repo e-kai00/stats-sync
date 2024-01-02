@@ -21,6 +21,46 @@ h2 {
     @include page-title
 }
 
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: $text-color;
+}
+
+label {
+    color: $grey;
+}
+
 .navbar {
     background-color: $cream;   
+}
+
+.app-button {
+    @include custom-button
+}
+
+// ------------------------------ SpendSpnap main
+.button-set {
+    display: flex;
+    gap: 1em;
+    margin-top: 1em;
+    justify-content: flex-end;
+
+    button,
+    a {
+        @include functional-link;
+    }
+}
+
+// ------------------------------ Add expense
+
+// ------------------------------ Update expense
+.sub-title {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 2em;
+    color: $grey;
 }

@@ -3,3 +3,31 @@
     font-weight: bold;
     margin-block: 1.5em;
 }
+
+@mixin functional-link() {
+    background: inherit;
+    color: $choco;
+    border: none;
+    text-decoration: underline;
+
+    &:hover {
+        font-weight: bold;
+        text-decoration: none;
+    }
+}
+
+@mixin custom-button() {
+    background-color: $cream;
+    padding-inline: 1em;
+    padding-block: .5em;
+    border: none;
+    border-radius: 8px;
+    color: $seashell;
+    transition: transform 0.3s ease; 
+
+    &:hover {
+        background-color: $choco;
+        transform: scale(1.1);
+        
+    }
+}

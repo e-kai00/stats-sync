@@ -12,4 +12,4 @@
     - forms
     - modals and alerts
 - Bootstrap icons
-- Saas/ SCSS
+- Sass/ SCSS

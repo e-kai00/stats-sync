@@ -33,6 +33,12 @@ label {
   color: #424c55;
 }
 
+.form-control:focus,
+.form-select:focus {
+  border-color: #886f68;
+  box-shadow: 0 0 0 0.25rem rgba(136, 111, 104, 0.3);
+}
+
 .navbar {
   background-color: #886f68;
 }

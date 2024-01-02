@@ -9,7 +9,7 @@
     <div class="row mb-3">
         <div class="col">
             <label for="sub-category" class="form-label">Sub-categoty</label>
-            <select name="sub-category" id="sub-category" class="form-select">
+            <select name="sub-category" id="sub-category" class="form-select" required>
                 <option value="">--Choose option--</option>
                 <option value="option1">Option 1</option>
                 <option value="option2">Option 2</option>
@@ -19,12 +19,12 @@
         </div>
         <div class="col">
             <label for="amount" class="form-label">Amount</label>
-            <input id="amount" name="amount" type="text" class="form-control">
+            <input id="amount" name="amount" type="text" class="form-control" required>
         </div>
     </div>
     <div class="mb-3">
         <label for="description" class="form-label">Description</label>
-        <textarea id="description" name="description" type="text" rows="5" cols="33" class="form-control"></textarea>
+        <textarea id="description" name="description" type="text" rows="5" cols="33" class="form-control" maxlength="100"></textarea>
     </div>
     <div class="mb-3">
         <button type="submit" class="app-button">Update</button>

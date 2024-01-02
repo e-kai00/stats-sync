@@ -1,4 +1,4 @@
-from flask import jsonify, render_template, request, redirect, url_for
+from flask import jsonify, render_template, request, redirect, url_for, flash
 import requests
 from requests.exceptions import RequestException
 from datetime import datetime
@@ -143,6 +143,7 @@ def add_expense():
         db.session.add(expense)
         db.session.commit()
 
+        flash('Success! Expense has been added', 'success')
         return redirect(url_for('spend_snap'))
     
     return render_template('add_expense.html')
@@ -162,6 +163,7 @@ def update_expense(expense_id):
 
             db.session.commit()
 
+            flash('Success! Expense has been updated', 'success')
             return redirect(url_for('spend_snap'))
 
     return render_template('update_expense.html', expense=expense)
@@ -176,6 +178,7 @@ def delete_expense(expense_id):
         db.session.delete(expenss)
         db.session.commit()
 
+        flash('Success! Expense has been deleted', 'success')
         return redirect(url_for('spend_snap'))
     
     print("No expense found")

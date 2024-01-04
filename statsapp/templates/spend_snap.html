@@ -6,7 +6,7 @@
 <div>
     <form method="GET" action="{{url_for('spend_snap')}}">
         <div class="mb-3">
-            <label for="period" class="form-label">Choose Month</label>
+            <label for="period" class="form-label visually-hidden">Choose Month</label>
             <select name="period" id="period" class="form-select">
                 <option value="">--Current Month--</option>
                 <option value="1">1</option>
@@ -30,27 +30,94 @@
     </form>
 </div>
 
-<div>
+<div> 
     <ul>
         {% for expense in expenses %}
         <!-- <li>id {{expense.id}}</li> -->
         <!-- <li>{{expense.origin}}</li> -->
         <!-- <li>{{expense.main_category}}</li> -->
-        <li class="row"><div class="col">Category:</div> <div class="col">{{expense.sub_category}}</div></li>
-        <li class="row"><div class="col">Amount:</div> <div class="col">{{expense.amount}} usd</div></li>
-        <li class="row"><div class="col">Note:</div> <div class="col">{{expense.description}}</div></li>
-        <li class="row"><div class="col">Date:</div> <div class="col">{{expense.date}}</div></li>
+        <li class="row">
+            <div class="col">Category:</div>
+            <div class="col">{{expense.sub_category}}</div>
+        </li>
+        <li class="row">
+            <div class="col">Amount:</div>
+            <div class="col">{{expense.amount}} usd</div>
+        </li>
+        <li class="row">
+            <div class="col">Note:</div>
+            <div class="col">{{expense.description}}</div>
+        </li>
+        <li class="row">
+            <div class="col">Date:</div>
+            <div class="col">{{expense.date}}</div>
+        </li>
 
         <li>
             <div class="button-set">
                 <form method="POST" action="{{url_for('delete_expense', expense_id=expense.id)}}">
                     <button type="submit">Delete</button>
                 </form>
-                <a href="{{url_for('update_expense', expense_id=expense.id)}}">Update</a>
+                <!-- <a href="{{url_for('update_expense', expense_id=expense.id)}}" data-bs-toggle="modal" data-bs-target="#deleteModal">Update</a> -->
+                <a href="" id="update-link" data-expense-id="{{expense.id}}" data-bs-toggle="modal" data-bs-target="#updateModal">Update</a>
             </div>
         </li>
         <hr>
         {% endfor %}
     </ul>
+
+    <!-- update modal -->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Update Expense?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <!-- <button type="button" class="btn btn-primary">Yes</button> -->
+                    <a id="modalUpdateButton" class="btn btn-primary">Yes</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- delete modal -->
+    <!-- <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure want to delete this? This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let updateLink = document.getElementById('update-link');
+        let updateModal = document.getElementById('modalUpdateButton');
+
+        updateLink.addEventListener('click', function() {
+            let expenseId = this.getAttribute('data-expense-id');
+            console.log(expenseId)
+            updateModal.href = "/spend-snap/" + expenseId + "/update";
+            console.log(updateModal.href)
+        })
+    })
+</script>
 {% endblock %}

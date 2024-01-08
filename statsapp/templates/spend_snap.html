@@ -30,7 +30,7 @@
     </form>
 </div>
 
-<div> 
+<div>
     <ul>
         {% for expense in expenses %}
         <li>id {{expense.id}}</li>
@@ -55,20 +55,20 @@
 
         <li>
             <div class="button-set">
-                <form method="POST" action="{{url_for('delete_expense', expense_id=expense.id)}}">
-                    <button type="submit">Delete</button>
+                <form method="POST" action="{{url_for('delete_expense', expense_id=expense.id)}}" id="deleteForm">
+                    <button type="submit" class="delete-button">Delete</button>
                 </form>
                 <!-- <a href="{{url_for('update_expense', expense_id=expense.id)}}" data-bs-toggle="modal" data-bs-target="#updateModal{{expense.id}}">Update</a> -->
                 <!-- <a href="" id="update-link" data-expense-id="{{expense.id}}" data-bs-toggle="modal" data-bs-target="#updateModal">Update</a> -->
-                <!-- {% set update_url = url_for('update_expense', expense_id=expense.id) %} --> 
+                <!-- {% set update_url = url_for('update_expense', expense_id=expense.id) %} -->
                 <button class="update-button" data-expense-id="{{expense.id}}" data-bs-toggle="modal" data-bs-target="#updateModal{{expense.id}}">Update</button>
-                
             </div>
         </li>
         <hr>
 
         <!-- update modal -->
-        <div class="modal fade" id="updateModal{{expense.id}}" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal fade" id="updateModal{{expense.id}}" tabindex="-1" aria-labelledby="updateModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -81,33 +81,52 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                         <!-- <button type="button" class="btn btn-primary">Yes</button> -->
-                        <a href="{{url_for('update_expense', expense_id=expense.id)}}" id="modalUpdateButton" class="btn btn-primary">Yes</a>
+                        <a href="{{url_for('update_expense', expense_id=expense.id)}}" id="modalUpdateButton"
+                            class="btn btn-primary">Yes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- delete modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure want to delete expense with ID {{expense.id}}? This action cannot be undone.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" id="deleteConfirmButton" class="btn btn-primary">Delete</button>
                     </div>
                 </div>
             </div>
         </div>
         {% endfor %}
-    </ul> 
-
-    <!-- delete modal -->
-    <!-- <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure want to delete this? This action cannot be undone.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
+    </ul>
 </div>
+
+<script>
+     document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.delete-button').forEach((button) => 
+        button.addEventListener('click', (event) => {
+            event.preventDefault()
+
+            var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            deleteModal.show();
+        })
+    );
+
+    document.getElementById('deleteConfirmButton').addEventListener('click', () => {
+        document.getElementById('deleteForm').submit();
+    })
+
+})
+</script>
 
 {% endblock %}
 
@@ -130,5 +149,3 @@
     })
 
 </script> -->
-
-

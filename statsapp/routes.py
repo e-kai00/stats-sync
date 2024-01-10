@@ -194,7 +194,7 @@ def update_expense(expense_id):
     return render_template('update_expense.html', expense=expense)
 
 
-@app.route('/spend-snap/<int:expense_id>/delete', methods=['POST'])
+@app.route('/spend-snap/<int:expense_id>', methods=['POST'])
 def delete_expense(expense_id):
 
     expenss = Expense.query.get_or_404(expense_id)

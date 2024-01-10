@@ -1,4 +1,5 @@
 from flask import jsonify, render_template, request, redirect, url_for, flash
+from sqlalchemy.exc import IntegrityError
 import requests
 from requests.exceptions import RequestException
 from datetime import datetime
@@ -131,20 +132,31 @@ def spend_snap():
 def add_expense():
 
     if request.method == 'POST':
-        expense = Expense(
-            origin = 'SpendSnap App',
-            main_category = 'Production Costs',
-            date = datetime.today().date(),
+        try:            
+            expense = Expense(
+                origin = 'SpendSnap App',
+                main_category = 'Production Costs',
+                date = datetime.today().date(),
 
-            sub_category = request.form.get('sub-category'),
-            amount = request.form.get('amount'),
-            description = request.form.get('description')
-        )
-        db.session.add(expense)
-        db.session.commit()
+                sub_category = request.form.get('sub-category'),
+                amount = request.form.get('amount'),
+                description = request.form.get('description')
+            )
+            db.session.add(expense)
+            db.session.commit()
 
-        flash('Success! Expense has been added', 'success')
-        return redirect(url_for('spend_snap'))
+            flash('Success! Expense has been added', 'success')
+            return redirect(url_for('spend_snap'))
+        
+        except IntegrityError as e:
+            db.session.rollback()            
+            flash(f'Database integrity error: {str(e)}', 'error')
+            return redirect(url_for('add_expense'))
+        
+        except Exception as e:
+            flash('An unexpected error occurred. Please try again later.', 'error')
+            print(f'error happened {str(e)}')
+            return redirect(url_for('add_expense'))
     
     return render_template('add_expense.html')
 

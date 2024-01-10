@@ -5,7 +5,7 @@
 
 <p class="sub-title">You're updating expense id-{{ expense.id }}</p>
 
-<form method="POST" action="{{url_for('update_expense', expense_id=expense.id)}}">
+<form method="POST" action="{{url_for('update_expense', expense_id=expense.id)}}" id="updateForm">
     <div class="row mb-3">
         <div class="col">
             <label for="sub-category" class="form-label">Sub-categoty</label>
@@ -24,7 +24,8 @@
     </div>
     <div class="mb-3">
         <label for="description" class="form-label">Description</label>
-        <textarea id="description" name="description" type="text" rows="5" cols="33" class="form-control" maxlength="100"></textarea>
+        <textarea id="description" name="description" type="text" rows="5" cols="33" class="form-control"
+            maxlength="100"></textarea>
     </div>
     <div class="mb-3">
         <button type="submit" class="app-button">Update</button>

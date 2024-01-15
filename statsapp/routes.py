@@ -1,4 +1,4 @@
-from flask import jsonify, render_template, request, redirect, url_for, flash
+from flask import jsonify, render_template, request, redirect, url_for, flash, abort
 from sqlalchemy.exc import SQLAlchemyError
 import requests
 from requests.exceptions import RequestException
@@ -97,12 +97,13 @@ def checker():
     return jsonify(saved_orders=orders_list)
 
 
-# custom app data
+# --------------------------------------------custom app data
 @app.route('/spend-snap', methods=['GET'] )
 def spend_snap():
     """
     Displays expenses
-    """
+    """    
+
     period_filter = request.args.get('period')
 
     # display current month
@@ -130,7 +131,7 @@ def spend_snap():
 
 @app.route('/spend-snap/add', methods=['GET', 'POST'])
 def add_expense():
-
+    
     if request.method == 'POST':
         try:            
             expense = Expense(
@@ -149,14 +150,10 @@ def add_expense():
             return redirect(url_for('spend_snap'))
         
         except SQLAlchemyError as e:
-            db.session.rollback()            
-            flash('Database error. Check if all fields are filled correctly and try again.', 'error')
-            print(f'database error happened {str(e)}')
+            db.session.rollback()           
             return redirect(url_for('add_expense'))
         
-        except Exception as e:
-            flash('An unexpected error occurred. Please try again later.', 'error')
-            print(f'error happened {str(e)}')
+        except Exception as e:            
             return redirect(url_for('add_expense'))
     
     return render_template('add_expense.html')
@@ -181,14 +178,10 @@ def update_expense(expense_id):
                 return redirect(url_for('spend_snap'))
             
             except SQLAlchemyError as e:
-                db.session.rollback()            
-                flash('Database error. Check if all fields are filled correctly and try again.', 'error')
-                print(f'database error happened {str(e)}')
+                db.session.rollback()                
                 return redirect(url_for('update_expense', expense_id=expense.id))
             
-            except Exception as e:
-                flash('An unexpected error occurred. Please try again later.', 'error')
-                print(f'error happened {str(e)}')
+            except Exception as e:                
                 return redirect(url_for('update_expense', expense_id=expense.id))
 
     return render_template('update_expense.html', expense=expense)
@@ -208,9 +201,7 @@ def delete_expense(expense_id):
             return redirect(url_for('spend_snap'))
         
         except SQLAlchemyError as e:
-            db.session.rollback()
-            flash('An unexpected error occurred. Please try again later.', 'error')
-            print(f'database error happened {str(e)}')
+            db.session.rollback()            
             return redirect(url_for('spend_snap'))
     
     flash('No expense found', 'error')

@@ -16,10 +16,3 @@ def handle_sqlalchemy_error(e, redirect_to='spend_snap'):
     flash('Check if all fields are filled correctly and try again.', 'error')
     print(f'database error happened {str(e)}')
     return redirect(url_for(redirect_to))
-
-
-def handle_generic_error(e, redirect_to='spend_snap'):
-    flash('FROM HANDLER: An unexpected error occurred. Please try again later.', 'error')
-    print(f'error happened {str(e)}')
-    return redirect(url_for(redirect_to))
-

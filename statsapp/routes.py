@@ -151,10 +151,7 @@ def add_expense():
         
         except SQLAlchemyError as e:
             db.session.rollback()           
-            return redirect(url_for('add_expense'))
-        
-        except Exception as e:            
-            return redirect(url_for('add_expense'))
+            return redirect(url_for('add_expense'))       
     
     return render_template('add_expense.html')
 
@@ -179,10 +176,7 @@ def update_expense(expense_id):
             
             except SQLAlchemyError as e:
                 db.session.rollback()                
-                return redirect(url_for('update_expense', expense_id=expense.id))
-            
-            except Exception as e:                
-                return redirect(url_for('update_expense', expense_id=expense.id))
+                return redirect(url_for('update_expense', expense_id=expense.id))            
 
     return render_template('update_expense.html', expense=expense)
 

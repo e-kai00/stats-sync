@@ -8,7 +8,6 @@ from errors.handlers import (
     handle_bad_request,
     page_not_found,
     internal_server_error,
-    handle_generic_error,
     handle_sqlalchemy_error
 )
 if os.path.exists("env.py"):
@@ -33,7 +32,6 @@ app.register_error_handler(SQLAlchemyError, handle_sqlalchemy_error)
 app.register_error_handler(400, handle_bad_request)
 app.register_error_handler(404, page_not_found)
 app.register_error_handler(500, internal_server_error)
-app.register_error_handler(Exception, handle_generic_error)
 
 # 3d party APIs
 SHOPIFY_API_BASE_URL = f'https://{os.environ.get("SHOPIFY_SHOP_NAME")}/admin/api/2023-10'

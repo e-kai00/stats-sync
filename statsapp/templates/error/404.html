@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>404 Page not found</h2>
+
+<div class="custom-err-container">
+    <div>
+        <h3>Oops! Page not found...</h3>
+        <p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
+        </p>
+    </div>
+
+    <div class="err-page-bnt">
+        <a href="{{ url_for('spend_snap') }}" class="app-button" role="button">Return to Home</a>
+    </div>
+</div>
+{% endblock %}

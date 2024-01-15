@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>500 Internal Server Error</h2>
+
+<div class="custom-err-container">
+    <div>
+        <h3>Oops! Something went wrong...</h3>
+            <p>We're sorry, but there was an internal server error. Our team has been notified, and we're working to fix
+                the issue.</p>
+    </div>
+
+    <div class="err-page-bnt">
+        <a href="{{ url_for('spend_snap') }}" class="app-button" role="button">Return to Home</a>
+    </div>
+</div>
+{% endblock %}

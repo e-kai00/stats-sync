@@ -5,11 +5,11 @@ env.py
 *.py[cod]
 node_modules/
 .github/
-cloudinary_python.txt 
 *sqlite3
 __pycache__/
-stats_sync/
 notes.md
 instance/
 testing.json
 samples.py
+stats_sync/
+venv/

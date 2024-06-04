@@ -3,7 +3,12 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from sqlalchemy.exc import SQLAlchemyError
-# from werkzeug.exceptions import HTTPException
+
+from .api.routes import api
+from .exp_app.routes import exp_app
+from .profile.routes import profile
+from .report.routes import report
+
 from errors.handlers import (
     handle_bad_request,
     page_not_found,
@@ -26,6 +31,13 @@ else:
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
+# Blueprints
+app.register_blueprint(api)
+app.register_blueprint(exp_app)
+app.register_blueprint(profile)
+app.register_blueprint(report)
+
 
 # error handlers
 app.register_error_handler(SQLAlchemyError, handle_sqlalchemy_error)
